@@ -54,5 +54,3 @@ async def main():
   results.append({'check':str(e),'passed':False});raise
  finally:(out/'ui-results.json').write_text(json.dumps(results,indent=2))
 asyncio.run(main())
-
-
