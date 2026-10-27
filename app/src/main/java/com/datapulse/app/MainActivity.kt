@@ -123,7 +123,7 @@ class MainActivity : ComponentActivity() {
    }
    if (speedScreen) {
     TextButton(onClick={speedScreen=false}){Icon(Glyph.ArrowBack,null);Text(" Back to app")}
-    SpeedScreen()
+     SpeedScreen(onMeasurementChanged={lifecycleScope.launch{scrollState.scrollTo(0)}})
    } else if (setup) {
     TextButton(onClick = { setup = false }) { Icon(Glyph.ArrowBack, null); Text(" Back") }
     SetupScreen(onSaved = { setup = false; tab = 0 })

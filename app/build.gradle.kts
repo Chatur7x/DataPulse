@@ -14,8 +14,8 @@ android {
         applicationId = "com.datapulse.app"
         minSdk = 23
         targetSdk = 36
-        versionCode = 3
-        versionName = "0.4.0"
+        versionCode = 4
+        versionName = "0.5.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -50,6 +50,12 @@ android {
 ksp {
     // §7: schema JSON committed to git; migrations tested, never destructive post-1.0
     arg("room.schemaLocation", "$projectDir/schemas")
+}
+
+// Both variants export the same Room schema. Prevent concurrent writes when
+// callers request debug validation and the optimized preview in one invocation.
+tasks.configureEach {
+    if (name == "kspPreviewKotlin") mustRunAfter("kspDebugKotlin")
 }
 
 dependencies {

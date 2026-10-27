@@ -100,7 +100,7 @@ interface MetaDao {
         UidMap::class, AppLimit::class, AlertLog::class, SyncState::class,
         com.datapulse.app.speed.SpeedResult::class
     ],
-    version = 3, exportSchema = true
+    version = 4, exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun plans(): PlanDao

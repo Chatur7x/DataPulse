@@ -16,9 +16,12 @@ data class SpeedResult(
  val payloadBytes:Long,
  val networkType:String,
  val server:String,
- val qualityNote:String
+ val qualityNote:String,
+ @ColumnInfo(defaultValue="''") val measurementJson:String=""
 )
 @Dao interface SpeedDao {
+ @Query("SELECT * FROM speed_results WHERE id = :id LIMIT 1")
+ suspend fun findOnce(id:String):SpeedResult?
  @Insert suspend fun insert(result:SpeedResult)
  @Query("SELECT * FROM speed_results ORDER BY timestampMs DESC LIMIT 30")
  fun recent():Flow<List<SpeedResult>>

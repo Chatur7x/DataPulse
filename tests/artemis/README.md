@@ -14,3 +14,13 @@ Install the DataPulse debug APK first. Start with no saved plans. The suite crea
 After an interrupted run, `--reset-test-plan` permits cleanup only after the named test carrier is observed. Never run this suite on a personal phone. Exact observed text and verified bottom-navigation geometry avoid Artemis's substring matching ambiguity between `Settings` and `Open usage settings`.
 
 Upstream: https://github.com/google/artemis
+
+## Speed measurement regression (v0.5)
+
+Install the optimized preview on a dedicated emulator. This suite makes real public-endpoint transfers within the on-screen quick-mode budget per completed test; cancelled warm-ups may add traffic. It creates a JSON document in the emulator Downloads folder. Never run it on a personal phone.
+
+```powershell
+D:\Tools\artemis\.venv\Scripts\python.exe tests\artemis\speed_acceptance.py --artemis-root D:\Tools\artemis --serial emulator-5554 --output evidence\speed
+```
+
+The suite verifies completed measurements, cancellation/restart, loaded HTTP latency, JSON export, background cancellation and process persistence. This is controller-driven testing, not an autonomous LLM run.

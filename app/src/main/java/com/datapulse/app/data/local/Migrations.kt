@@ -13,3 +13,9 @@ val MIGRATION_2_3 = object : Migration(2,3) {
   db.execSQL("CREATE TABLE IF NOT EXISTS speed_results (id TEXT NOT NULL PRIMARY KEY, timestampMs INTEGER NOT NULL, downloadMbps REAL NOT NULL, uploadMbps REAL NOT NULL, latencyMs REAL NOT NULL, jitterMs REAL NOT NULL, downloadMs INTEGER NOT NULL, uploadMs INTEGER NOT NULL, payloadBytes INTEGER NOT NULL, networkType TEXT NOT NULL, server TEXT NOT NULL, qualityNote TEXT NOT NULL)")
  }
 }
+
+val MIGRATION_3_4 = object : Migration(3,4) {
+ override fun migrate(db: SupportSQLiteDatabase) {
+  db.execSQL("ALTER TABLE speed_results ADD COLUMN measurementJson TEXT NOT NULL DEFAULT ''")
+ }
+}

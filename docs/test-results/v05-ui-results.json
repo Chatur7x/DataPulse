@@ -1,0 +1,42 @@
+[
+  {
+    "check": "Account-free speed screen opens",
+    "passed": true
+  },
+  {
+    "check": "Cancellation reports incomplete test without fabricated result",
+    "passed": true
+  },
+  {
+    "check": "Immediate restart after cancellation works",
+    "passed": true
+  },
+  {
+    "check": "Live speed test completes and result is visible",
+    "passed": true
+  },
+  {
+    "check": "Idle and loaded HTTP latency details displayed",
+    "passed": true
+  },
+  {
+    "check": "Original byte counts and monotonic timings available",
+    "passed": true
+  },
+  {
+    "check": "Original JSON exports through Android document picker",
+    "passed": true
+  },
+  {
+    "check": "Measurement persists across navigation",
+    "passed": true
+  },
+  {
+    "check": "Backgrounding cancels an active transfer",
+    "passed": true
+  },
+  {
+    "check": "Measurement persists after process restart",
+    "passed": true
+  }
+]
