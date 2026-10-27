@@ -98,9 +98,9 @@ interface MetaDao {
     entities = [
         RechargePlan::class, DailySnapshot::class, AppUsage::class, HourlySnapshot::class,
         UidMap::class, AppLimit::class, AlertLog::class, SyncState::class,
-        com.datapulse.app.speed.SpeedResult::class
+        com.datapulse.app.speed.SpeedResult::class, com.datapulse.app.sim.SimRecharge::class
     ],
-    version = 4, exportSchema = true
+    version = 5, exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun plans(): PlanDao
@@ -108,5 +108,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun apps(): AppUsageDao
     abstract fun hourly(): HourlyDao
     abstract fun meta(): MetaDao
+    abstract fun sims(): com.datapulse.app.sim.SimRechargeDao
     abstract fun speed(): com.datapulse.app.speed.SpeedDao
 }

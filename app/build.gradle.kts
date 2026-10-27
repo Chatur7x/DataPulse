@@ -14,8 +14,8 @@ android {
         applicationId = "com.datapulse.app"
         minSdk = 23
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.5.0"
+        versionCode = 5
+        versionName = "0.6.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -59,6 +59,7 @@ tasks.configureEach {
 }
 
 dependencies {
+    implementation("androidx.browser:browser:1.8.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 

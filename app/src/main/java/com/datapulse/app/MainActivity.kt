@@ -80,12 +80,13 @@ class MainActivity : ComponentActivity() {
  val stamp by status.stamp.collectAsStateWithLifecycle()
  var tab by rememberSaveable { mutableIntStateOf(0) }
  var setup by rememberSaveable { mutableStateOf(false) }
+ var simScreen by rememberSaveable { mutableStateOf(false) }
  var speedScreen by rememberSaveable { mutableStateOf(false) }
- BackHandler(enabled=setup||speedScreen){if(speedScreen)speedScreen=false else setup=false}
+ BackHandler(enabled=setup||speedScreen||simScreen){when{simScreen->simScreen=false;speedScreen->speedScreen=false;else->setup=false}}
  val scrollState = rememberScrollState()
  val pageAlpha = remember { Animatable(1f) }
  var firstPage by remember { mutableStateOf(true) }
- LaunchedEffect(tab, setup, speedScreen) {
+ LaunchedEffect(tab, setup, speedScreen, simScreen) {
   scrollState.scrollTo(0)
   if (firstPage) firstPage = false
   else { pageAlpha.snapTo(.45f); pageAlpha.animateTo(1f, tween(180, easing=FastOutSlowInEasing)) }
@@ -108,7 +109,7 @@ class MainActivity : ComponentActivity() {
   if (!setup) NavigationBar(containerColor = MaterialTheme.colorScheme.surface) {
    val labels = listOf("Overview", "Trends", "Apps", "My plan", "Settings")
    val icons = listOf(Glyph.DonutLarge, Glyph.BarChart, Glyph.Apps, Glyph.SimCard, Glyph.Tune)
-   labels.forEachIndexed { i, name -> NavigationBarItem(selected = tab == i, onClick = { tab = i; speedScreen = false }, colors = NavigationBarItemDefaults.colors(indicatorColor = Mint.copy(alpha = .25f), selectedIconColor = MaterialTheme.colorScheme.primary), icon = {
+   labels.forEachIndexed { i, name -> NavigationBarItem(selected = tab == i, onClick = { tab = i; speedScreen = false; simScreen=false }, colors = NavigationBarItemDefaults.colors(indicatorColor = Mint.copy(alpha = .25f), selectedIconColor = MaterialTheme.colorScheme.primary), icon = {
     val scale by animateFloatAsState(if(tab==i) 1.08f else 1f, spring(stiffness=Spring.StiffnessMediumLow), label="Navigation selection")
     Icon(icons[i], name, Modifier.graphicsLayer { scaleX=scale; scaleY=scale })
    }, label = { Text(name, fontSize = 10.sp) }) }
@@ -121,7 +122,10 @@ class MainActivity : ComponentActivity() {
     Column(Modifier.weight(1f)) { Text("DataPulse", fontWeight = FontWeight.Bold, fontSize = 22.sp); Text("Your connection, considered.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     if (!setup) IconButton(onClick = { SyncWorker.syncNow(ctx) }, enabled = granted) { Icon(Glyph.Refresh, "Refresh usage") }
    }
-   if (speedScreen) {
+   if (simScreen) {
+    TextButton(onClick={simScreen=false}){Icon(Glyph.ArrowBack,null);Text(" Back to app")}
+    SimPlansScreen(onPageChanged={lifecycleScope.launch{scrollState.scrollTo(0)}})
+   } else if (speedScreen) {
     TextButton(onClick={speedScreen=false}){Icon(Glyph.ArrowBack,null);Text(" Back to app")}
      SpeedScreen(onMeasurementChanged={lifecycleScope.launch{scrollState.scrollTo(0)}})
    } else if (setup) {
@@ -143,7 +147,8 @@ class MainActivity : ComponentActivity() {
      1 -> HistoryAnalyticsScreen(granted,onDayPicked={lifecycleScope.launch{scrollState.animateScrollTo(0)}})
      2 -> AppsScreen(granted)
      3 -> {
-      Heading("Your connection", "One active plan. All mobile networks on this phone.")
+      Heading("Your connection", "Phone-wide allowance, plus separate profiles for your SIMs.")
+      OutlinedButton(onClick={simScreen=true},modifier=Modifier.fillMaxWidth()){Icon(Glyph.SimCard,null);Spacer(Modifier.width(8.dp));Text("SIMs & recharges")}
       OutlinedButton(onClick={speedScreen=true},modifier=Modifier.fillMaxWidth()){Icon(Glyph.DonutLarge,null);Spacer(Modifier.width(8.dp));Text("Measure internet speed")}
       if (plan != null) {
        Panel { Text(plan!!.carrierName, style = MaterialTheme.typography.headlineMedium); Text("${plan!!.cycleDays} days from ${plan!!.cycleStartDate}"); Text("₹${plan!!.rechargeAmount} paid"); Text(if (plan!!.planType == PlanType.DAILY) "Daily reset allowance" else "Shared cycle allowance") }

@@ -26,7 +26,7 @@ object AppModule {
     @Provides @Singleton
     fun db(@ApplicationContext ctx: Context): AppDatabase =
         Room.databaseBuilder(ctx, AppDatabase::class.java, "datapulse.db")
-            .addMigrations(com.datapulse.app.data.local.MIGRATION_2_3, com.datapulse.app.data.local.MIGRATION_3_4)
+            .addMigrations(com.datapulse.app.data.local.MIGRATION_2_3, com.datapulse.app.data.local.MIGRATION_3_4, com.datapulse.app.data.local.MIGRATION_4_5)
             .build()
 
     // §4 rule #1: plans + measured data ONLY in Room. DataStore = volatile settings

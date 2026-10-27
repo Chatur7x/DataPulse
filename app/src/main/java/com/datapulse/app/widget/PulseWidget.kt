@@ -49,7 +49,7 @@ class PulseWidget : GlanceAppWidget() {
     private data class Snap(val carrier: String, val line1: String, val line2: String)
 
     private suspend fun readSnapshot(context: Context): Snap = runCatching {
-        val db = Room.databaseBuilder(context, AppDatabase::class.java, "datapulse.db").addMigrations(com.datapulse.app.data.local.MIGRATION_2_3, com.datapulse.app.data.local.MIGRATION_3_4).build()
+        val db = Room.databaseBuilder(context, AppDatabase::class.java, "datapulse.db").addMigrations(com.datapulse.app.data.local.MIGRATION_2_3, com.datapulse.app.data.local.MIGRATION_3_4, com.datapulse.app.data.local.MIGRATION_4_5).build()
         try {
             val plan = db.plans().activePlanOnce() ?: return Snap("—", "No plan", "Set up a plan")
             val stamp = db.meta().syncStateOnce()?.lastSuccessMs ?: 0L

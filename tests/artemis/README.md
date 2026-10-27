@@ -24,3 +24,11 @@ D:\Tools\artemis\.venv\Scripts\python.exe tests\artemis\speed_acceptance.py --ar
 ```
 
 The suite verifies completed measurements, cancellation/restart, loaded HTTP latency, JSON export, background cancellation and process persistence. This is controller-driven testing, not an autonomous LLM run.
+
+## SIM/recharge regression (v0.6)
+
+```powershell
+D:\Tools\artemis\.venv\Scripts\python.exe tests\artemis\sim_acceptance.py --artemis-root D:\Tools\artemis --serial emulator-5554 --output evidence\sims
+```
+
+Dedicated emulator only. The suite revokes/denies then grants Phone permission, detects its actual SIM, checks the restricted-plan explanation, visits all four directory cards, and creates an explicitly named **Artemis SIM fixture** using pasted receipt text. It cancels record deletion, checks persistence and verifies speed-screen entry. It does not log into carrier accounts, purchase anything, or claim a real carrier billing entitlement from its fixture.

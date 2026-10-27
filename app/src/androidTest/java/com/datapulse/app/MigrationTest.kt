@@ -7,6 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.datapulse.app.data.local.AppDatabase
 import com.datapulse.app.data.local.MIGRATION_2_3
 import com.datapulse.app.data.local.MIGRATION_3_4
+import com.datapulse.app.data.local.MIGRATION_4_5
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.Assert.*
@@ -32,7 +33,7 @@ class MigrationTest {
    db.execSQL("INSERT INTO speed_results VALUES ('legacy',123,10.0,5.0,20.0,2.0,8000,8000,1000000,'Wi-Fi','Cloudflare','Legacy measurement')")
    db.version=3
   }
-  val db=Room.databaseBuilder(ctx,AppDatabase::class.java,name).addMigrations(MIGRATION_3_4).build()
+  val db=Room.databaseBuilder(ctx,AppDatabase::class.java,name).addMigrations(MIGRATION_3_4, MIGRATION_4_5).build()
   try{
    val row=db.speed().findOnce("legacy")!!
    assertEquals(10.0,row.downloadMbps,0.0);assertEquals(5.0,row.uploadMbps,0.0)
@@ -59,7 +60,7 @@ class MigrationTest {
    db.execSQL("INSERT INTO daily_snapshots (date,totalMbUsed,wifiMbUsed,mobileMbUsed,unattributedMb) VALUES ('2026-10-25',300,200,100,0)")
    db.version=2
   }
-  val db=Room.databaseBuilder(ctx,AppDatabase::class.java,name).addMigrations(MIGRATION_2_3, MIGRATION_3_4).build()
+  val db=Room.databaseBuilder(ctx,AppDatabase::class.java,name).addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5).build()
   try{
    val row=db.daily().dayOnce("2026-10-25")!!
    assertEquals(100,row.mobileMbUsed);assertEquals(200,row.wifiMbUsed);assertEquals(0L,row.mobileBytes)

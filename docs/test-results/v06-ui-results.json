@@ -1,0 +1,50 @@
+[
+  {
+    "check": "Separate SIM section opens",
+    "passed": true
+  },
+  {
+    "check": "Optional phone access is explained without inbox or number access",
+    "passed": true
+  },
+  {
+    "check": "All four official carrier directories are available without phone permission",
+    "passed": true
+  },
+  {
+    "check": "Permission denial keeps the app usable",
+    "passed": true
+  },
+  {
+    "check": "Actual emulator SIM carrier and slot are detected",
+    "passed": true
+  },
+  {
+    "check": "Restricted carrier plan access is explicit, with no invented plan",
+    "passed": true
+  },
+  {
+    "check": "Incomplete recharge details are rejected",
+    "passed": true
+  },
+  {
+    "check": "Receipt extraction requires explicit review",
+    "passed": true
+  },
+  {
+    "check": "Reviewed recharge is saved under its own detected SIM",
+    "passed": true
+  },
+  {
+    "check": "Cancelling removal preserves the recharge",
+    "passed": true
+  },
+  {
+    "check": "Per-SIM recharge persists after process restart",
+    "passed": true
+  },
+  {
+    "check": "Existing speed-test entry still works",
+    "passed": true
+  }
+]

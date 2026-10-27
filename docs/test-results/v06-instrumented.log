@@ -1,0 +1,10 @@
+
+com.datapulse.app.RepositoryTest:..
+com.datapulse.app.MigrationTest:..
+com.datapulse.app.SimStorageTest:.
+
+Time: 11.914
+
+OK (5 tests)
+
+
