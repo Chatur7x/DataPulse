@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- §12 Listing 7: export sheet paths — scoped cache, never world-readable -->
+<paths>
+    <cache-path name="exports" path="exports/" />
+</paths>

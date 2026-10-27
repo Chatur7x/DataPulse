@@ -1,0 +1,21 @@
+# §7: Room schemas/ ARE committed (migration tests). Everything else ignored.
+*.iml
+.gradle/
+local.properties
+.idea/
+.DS_Store
+build/
+app/build/
+captures
+.externalNativeBuild
+.cxx
+*.hprof
+
+.kotlin/
+.env
+.env.*
+*.jks
+*.keystore
+__pycache__/
+*.pyc
+evidence/
